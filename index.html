@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Status report – Portfólio de projetos TI</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#F6F7F9; --surface:#FFFFFF; --surface-2:#EEF1F5; --line:#D8DDE5;
+  --ink:#14213D; --text:#2B3445; --muted:#5B6478;
+  --red:#B3261E; --red-bg:#FBE9E7; --amber:#8A5300; --amber-bg:#FDF0DC;
+  --green:#1B7F4B; --green-bg:#E2F3EA; --done:#3F5A8A; --done-bg:#E3E9F4;
+  --link:#1F4FB8;
+  color-scheme:light;
+  box-sizing:border-box;
+  padding-top:env(safe-area-inset-top,0px);
+  padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --bg:#10151F; --surface:#182030; --surface-2:#1F293B; --line:#2E3A50;
+    --ink:#E8EDF7; --text:#CDD5E3; --muted:#93A0B6;
+    --red:#FF8A7F; --red-bg:#3A1B1A; --amber:#F2B65A; --amber-bg:#36290F;
+    --green:#5FD49A; --green-bg:#12301F; --done:#9DB6E8; --done-bg:#1E2A44;
+    --link:#8DB2FF; color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --bg:#10151F; --surface:#182030; --surface-2:#1F293B; --line:#2E3A50;
+  --ink:#E8EDF7; --text:#CDD5E3; --muted:#93A0B6;
+  --red:#FF8A7F; --red-bg:#3A1B1A; --amber:#F2B65A; --amber-bg:#36290F;
+  --green:#5FD49A; --green-bg:#12301F; --done:#9DB6E8; --done-bg:#1E2A44;
+  --link:#8DB2FF; color-scheme:dark;
+}
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--text);font-family:'Public Sans',system-ui,-apple-system,'Segoe UI',Arial,sans-serif;font-size:16px;line-height:1.5;font-variant-numeric:tabular-nums}
+a{color:var(--link)}
+a:focus-visible,button:focus-visible,input:focus-visible{outline:3px solid var(--link);outline-offset:2px;border-radius:4px}
+.wrap{max-width:1180px;margin:0 auto;padding:40px 24px 56px}
+header{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:flex-end;gap:16px;margin-bottom:28px}
+h1{font-size:clamp(28px,4vw,40px);line-height:1.1;margin:0;color:var(--ink);font-weight:800;letter-spacing:-.01em}
+.sub{margin:8px 0 0;color:var(--muted)}
+.totals{display:flex;gap:10px;flex-wrap:wrap}
+.pill{border-radius:999px;padding:6px 14px;font-weight:600;font-size:14px;white-space:nowrap}
+h2{font-size:20px;color:var(--ink);margin:0 0 4px;font-weight:700}
+.hint{color:var(--muted);margin:0 0 16px;font-size:14px}
+section{margin-top:40px}
+
+/* Mapa do portfólio: barra + blocos clicáveis */
+.health{display:flex;height:14px;border-radius:7px;overflow:hidden;margin:4px 0 10px;background:var(--surface-2)}
+.health span{display:block;height:100%}
+.legend{display:flex;flex-wrap:wrap;gap:18px;font-size:14px;color:var(--muted);margin-bottom:18px}
+.legend b{color:var(--ink)}
+.dot{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:6px;vertical-align:middle}
+.map{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:10px}
+.tile{display:flex;flex-direction:column;gap:6px;text-decoration:none;color:var(--text);background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--c);border-radius:8px;padding:12px 14px;transition:transform .12s ease,border-color .12s ease}
+.tile:hover{border-color:var(--c);transform:translateY(-1px)}
+.tile .n{font-weight:700;color:var(--ink);line-height:1.25}
+.tile .r{font-size:13px;color:var(--muted)}
+.tile .s{font-size:13px;font-weight:600;color:var(--c)}
+.tile .open{font-size:13px;color:var(--link);margin-top:auto}
+.bar{height:6px;border-radius:3px;background:var(--surface-2);overflow:hidden}
+.bar i{display:block;height:100%;background:var(--c)}
+
+/* Demais frentes */
+.fronts{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:12px}
+.front{display:flex;flex-direction:column;gap:10px;background:var(--surface);border:1px solid var(--line);border-top:6px solid var(--c);border-radius:8px;padding:18px 20px}
+.front h3{margin:0;font-size:18px;color:var(--ink);line-height:1.25}
+.front .r{font-size:13px;color:var(--muted);margin:0}
+.front ul{margin:0;padding-left:18px;font-size:14px}
+.front li{margin:2px 0}
+.front .btn{margin-top:auto;align-self:flex-start;display:inline-block;background:var(--ink);color:var(--bg);text-decoration:none;font-weight:600;font-size:14px;border-radius:6px;padding:8px 14px}
+.front .btn:hover{opacity:.9}
+
+/* Atenção */
+.attn{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:8px;padding:16px 18px;display:flex;flex-direction:column;gap:8px}
+.card .top{display:flex;justify-content:space-between;gap:12px;align-items:baseline}
+.card .pct{font-size:28px;font-weight:800;color:var(--ink);line-height:1}
+.card p{margin:0}
+.tag{font-size:12px;font-weight:700;border-radius:4px;padding:2px 8px;white-space:nowrap}
+
+/* Marcos */
+.timeline{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:0;border-top:2px solid var(--line)}
+.timeline li{position:relative;padding:18px 14px 4px 0}
+.timeline li::before{content:"";position:absolute;top:-7px;left:0;width:12px;height:12px;border-radius:50%;background:var(--ink)}
+.timeline li.today::before{background:var(--amber);box-shadow:0 0 0 4px var(--amber-bg)}
+.timeline .d{font-size:22px;font-weight:800;color:var(--ink)}
+.timeline .today .d::after{content:" hoje";font-size:13px;font-weight:700;color:var(--amber)}
+.timeline .t{font-size:14px}
+
+/* Tabela */
+.tools{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px}
+.f{border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:999px;padding:6px 14px;font:inherit;font-size:14px;cursor:pointer}
+.f[aria-pressed="true"]{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.search{margin-left:auto;border:1px solid var(--line);background:var(--surface);color:var(--text);border-radius:8px;padding:7px 12px;font:inherit;font-size:14px;min-width:220px}
+.tbl{overflow-x:auto;background:var(--surface);border:1px solid var(--line);border-radius:8px}
+table{width:100%;border-collapse:collapse;min-width:900px;font-size:14px}
+th{text-align:left;font-weight:700;color:var(--muted);font-size:13px;padding:10px 12px;border-bottom:1px solid var(--line);background:var(--surface-2)}
+td{padding:12px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:none}
+td.p{font-weight:700;color:var(--ink)}
+td.num{white-space:nowrap}
+.mini{display:flex;align-items:center;gap:8px}
+.mini .bar{width:70px}
+.go{white-space:nowrap;font-weight:600;text-decoration:none}
+.go:hover{text-decoration:underline}
+.empty{padding:24px;text-align:center;color:var(--muted)}
+footer{margin-top:40px;font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:16px}
+@media (max-width:640px){.search{margin-left:0;width:100%}.wrap{padding:28px 16px 40px}}
+@media (prefers-reduced-motion:reduce){.tile{transition:none}.tile:hover{transform:none}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <div>
+      <h1>Status do portfólio de projetos</h1>
+      <p class="sub">Base: IT Update de 23/10/2026 (semana 19 a 23/10), do Import Export ao GRC/AC</p>
+    </div>
+    <div class="totals" id="totals"></div>
+  </header>
+
+  <section style="margin-top:0">
+    <h2>Saúde do portfólio</h2>
+    <p class="hint">Clique em um projeto para abrir a página dele no Portal de Tecnologia (SharePoint).</p>
+    <div class="health" id="health" role="img"></div>
+    <div class="legend" id="legend"></div>
+    <div class="map" id="map"></div>
+  </section>
+
+  <section>
+    <h2>Demais frentes</h2>
+    <p class="hint">Segurança da Informação e Infraestrutura, E-commerce e CSC têm status report próprio.</p>
+    <div class="fronts" id="fronts"></div>
+  </section>
+
+  <section>
+    <h2>Pontos de atenção</h2>
+    <p class="hint">Projetos com cronograma crítico, atrasado, em alerta ou em atenção.</p>
+    <div class="attn" id="attn"></div>
+  </section>
+
+  <section>
+    <h2>Próximos marcos</h2>
+    <p class="hint">Entregas previstas nas próximas três semanas.</p>
+    <ol class="timeline" id="timeline"></ol>
+  </section>
+
+  <section>
+    <h2>Todos os projetos</h2>
+    <p class="hint">Avanço, indicadores e responsáveis de cada projeto.</p>
+    <div class="tools" id="filters"></div>
+    <div class="tbl"><table>
+      <thead><tr><th>Projeto</th><th>Status</th><th>Avanço</th><th>Cronograma</th><th>Qualidade</th><th>Orçamento</th><th>Responsável / apoio</th><th>Situação</th><th>Acesso</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table></div>
+  </section>
+
+  <footer>
+    Fonte: IT Update de 23/10/2026 e planilha de projetos (responsáveis, apoio, avanço e links). “n/d” indica avanço ou valor não informado no relatório. Projetos “Em linha” sem percentual não tiveram avanço numérico publicado.
+  </footer>
+</div>
+
+<script>
+const SP = "https://nordtechmaquinas.sharepoint.com/:u:/r/sites/PortalTecnologia/SitePages/";
+const H = {
+  critico:{label:"Crítico / atrasado", c:"--red", bg:"--red-bg", order:0},
+  alerta:{label:"Alerta / atenção", c:"--amber", bg:"--amber-bg", order:1},
+  linha:{label:"Em linha", c:"--green", bg:"--green-bg", order:2},
+  concluido:{label:"Concluído", c:"--done", bg:"--done-bg", order:3}
+};
+const P = [
+ {n:"Import Export", r:"Cristiano", a:"Aldo", h:"concluido", pct:100, u:"Fluxo-de-Produtos-copy.aspx?d=w132e3c0189b04d49815cde5c9d0eb1e7&csf=1&web=2&share=IQABPC4TsIlJTYFc3lydDrHnAd-U7igg_49Y0sKXtQ-1Z2o&e=KXVEgk"},
+ {n:"Fluxo de Produtos", r:"Cristiano", a:"Geovanna", h:"concluido", pct:100, u:"Projeto-GRCAC-copy(1).aspx?d=wd4914a049f08412ba197cd78159ce709&csf=1&web=2&share=IQAESpHUCJ8rQaGXzXgVnOcJAR09HSZmdIlimEu-DNSvFw0&e=lNMpX5"},
+ {n:"Salesforce", r:"Cristiano", a:"–", h:"concluido", pct:100, u:"Import-Export-copy(1).aspx?d=w887a7f2b4ac84304bc5f1929f3aeea7a&csf=1&web=2&share=IQArf3qIyEoEQ7xfGSnzrup6Ac9f4VvdZUtCRzMPRCJm88c&e=vvPm3r"},
+ {n:"Integração Correios", r:"Cristiano", a:"Aldo", h:"concluido", pct:100, u:"Salesforce-copy.aspx?d=w7f413565d4894c83a01f25c51b100ece&csf=1&web=2&share=IQBlNUF_idSDTKAfJcUbEA7OAXTAAKwAlWhFgq7kp-cbiWo&e=SySXYz"},
+ {n:"WMS – Notas por DI", r:"Jean", a:"Alisson", h:"concluido", pct:100, u:"Integra%C3%A7%C3%A3o-Correios-copy.aspx?d=wb86447663e28463bb0c0e8d6309e6447&csf=1&web=2&share=IQBmR2S4KD47RrDA6NYwnmRHAZizZFxciGb7GJgoTnbKYb4&e=cF4Ytv"},
+ {n:"WMS Itajaí (Silt Sênior)", r:"Alisson", a:"Jean", h:"linha", pct:80, crono:"Em linha", qual:"Em linha", u:"WMS---Notas-por-DI-copy.aspx?d=w5e62bca0358948a385f366034ed0c7c9&csf=1&web=2&share=IQCgvGJeiTWjSIXzZgNO0MfJAWsueDHP-GzCQ6rtwZgHDAI&e=pVpbUl"},
+ {n:"S&OP / S&OE Plannera", r:"André", a:"Geovanna", h:"alerta", pct:80, crono:"Alerta", qual:"Alerta", orc:"R$ 497 mil", note:"Go-live do S&OE em 03/11", u:"Import-Export-copy.aspx?d=w7bb030ab38d5449ea87ad103fe95ef03&csf=1&web=2&share=IQCrMLB71TieRKh60QP-le8DAfzyfzN4LOtUkh87t1kitU8&e=njNnFw"},
+ {n:"TMS Intelipost (POC)", r:"Alisson", a:"Jean", h:"alerta", pct:50, crono:"Atenção", qual:"Em linha", note:"Fim da POC adiado para 09/11", u:"WMS-SILT-S%C3%8ANIOR-copy.aspx?d=wc6cfb63789eb4908964e427c424dcce5&csf=1&web=2&share=IQA3ts_G64kISZZOQnxCTczlASUXVjLsz_jB_t3rqtm7kDw&e=ZDLjUC"},
+ {n:"Atualização Tabela de Preços", r:"Cristiano", a:"Aldo", h:"linha", pct:null, crono:"Em linha", qual:"Em linha", note:"Go-live previsto para 27/10", u:"WMS-SILT-S%C3%8ANIOR-copy(1).aspx?d=wdb581153e8864c7ca2309d76b445c1d0&csf=1&web=2&share=IQBTEVjbhuh8TKIwnXa0RcHQAXTyCYf0tqjHbcznLyXF0iE&e=bb4r4h"},
+ {n:"Data Engineering Controladoria", r:"Cristiano", a:"Geovanna, Jean, Aldo", h:"alerta", pct:82, crono:"Alerta", qual:"Alerta", orc:"R$ 401 mil", note:"Mudança de escopo; em repriorização", u:"Atualiza%C3%A7%C3%A3o-Tabela-de-Pre%C3%A7os-copy.aspx?d=wbc7ee4ea6e9446449d2db41b78f3ab1c&csf=1&web=2&share=IQDq5H68lG5ERp0ttBt486scAcnnvEM460diDJmln6xXk0o&e=nIEbET"},
+ {n:"DW Comercial", r:"Cristiano", a:"Aldo", h:"linha", pct:null, crono:"Em linha", qual:"Em linha", u:"Atualiza%C3%A7%C3%A3o-Tabela-de-Pre%C3%A7os-copy(1).aspx?d=wb9b85b82701b489d8e5ffad2adbf0992&csf=1&web=2&share=IQCCW7i5G3CdSI5f-tKtvwmSAWFgu0E7tKtX2GmsrJyqJdM&e=Lcg5Cv"},
+ {n:"Reforma Tributária", r:"André", a:"Aldo", h:"critico", pct:57, crono:"Crítico", qual:"Em linha", orc:"R$ 52,8 mil", note:"Estratégia aguarda priorização da Fase 2 pela Diretoria; Configurador de Tributos em linha, go-live 31/10", u:"DW-Comercial-copy.aspx?d=w0b848492610b4384b4c5b76861d97650&csf=1&web=2&share=IQCShIQLC2GEQ7TFt2hh2XZQAQRV4KoAjM3MDjY8pcf-5hI&e=rEYgFN"},
+ {n:"Reforma Tributária – Outros Sistemas", r:"Cristiano", a:"Aldo", h:"alerta", pct:58, crono:"Atenção", qual:"Em linha", orc:"R$ 12,4 mil", note:"Integração CRM/e-commerce: orçamento de R$ 12,4 mil pendente; go-live 13/11", u:"Reforma-Tribut%C3%A1ria-copy.aspx?d=wb657d738bd6e4df58caa76279c5d1347&csf=1&web=2&share=IQA411e2br31TYyqdiecXRNHAUYxqq9i4yUv0H2EdDEV5Ps&e=yETQBF"},
+ {n:"Venda Futura", r:"Cristiano", a:"Geovanna, Jean", h:"linha", pct:null, crono:"Em linha", qual:"Em linha", u:"DW-Comercial-copy(1).aspx?d=wa561ac85b7f644c49e3e5f52b11d971b&csf=1&web=2&share=IQCFrGGl9rfERJ4-X1KxHZcbAbJIriY78RiaCu-RuxiqFZ8&e=a1VTaV"},
+ {n:"CMV Automação", r:"Cristiano", a:"Jean", h:"linha", pct:null, crono:"Em linha", qual:"Em linha", u:"Venda-Futura-copy.aspx?d=w8169208504d0475194d0cdf071913d2b&csf=1&web=2&share=IQCFIGmB0ARRR5TQzfBxkT0rAV2lbmnAmWmWZvtd1HPwfxE&e=mrvtXa"},
+ {n:"Inteligência de Mercado", r:"Cristiano", a:"Jean", h:"critico", pct:93, crono:"Atrasado", qual:"Em linha", note:"Go-live em 30/10; depende da liberação de acesso ao Claude", u:"CMV-Automa%C3%A7%C3%A3o-copy.aspx?d=wb9a5116cf33e4856b2a92f54221ff299&csf=1&web=2&share=IQBsEaW5PvNWSLKpL1QiH_KZAT9eHdl-MbFbXwCFPccDXkk&e=2hwU5c"},
+ {n:"GRC/AC – Protheus", r:"Aldo", a:"Gilberto", h:"linha", pct:null, crono:"Em linha", qual:"Em linha", note:"Gestão de acessos (IAM) no Protheus", u:"Intelig%C3%AAncia-de-Mercado-copy.aspx?d=wce74ea2980d84b53abc85e39a0e2a22f&csf=1&web=2&share=IQAp6nTO2IBTS6vIXjmg4qIvAcD1teTasw3qxMnO7G-ixys&e=BXdYBS"}
+];
+const MARCOS = [
+ {d:"27/10", t:"Go-live da tabela de preços", today:true},
+ {d:"30/10", t:"Go-live Inteligência de Mercado"},
+ {d:"31/10", t:"Go-live Configurador de Tributos"},
+ {d:"03/11", t:"Go-live S&OE Plannera"},
+ {d:"09/11", t:"Fim da POC TMS Intelipost"},
+ {d:"13/11", t:"Go-live integração CRM/e-commerce (Reforma)"}
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, ch => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[ch]));
+const v = k => `var(${k})`;
+const link = p => SP + p.u;
+const sorted = [...P].sort((x,y)=>H[x.h].order-H[y.h].order);
+const count = h => P.filter(p=>p.h===h).length;
+
+// Totais
+const ativos = P.length - count("concluido");
+document.getElementById("totals").innerHTML =
+  `<span class="pill" style="background:${v('--ink')};color:${v('--bg')}">${P.length} projetos</span>` +
+  `<span class="pill" style="background:${v('--done-bg')};color:${v('--done')}">${count("concluido")} concluídos</span>` +
+  `<span class="pill" style="background:${v('--surface-2')};color:${v('--ink')}">${ativos} em andamento</span>`;
+
+// Barra de saúde + legenda
+const health = document.getElementById("health");
+health.setAttribute("aria-label", Object.keys(H).map(k=>`${count(k)} ${H[k].label}`).join(", "));
+health.innerHTML = Object.keys(H).map(k=>`<span style="width:${count(k)/P.length*100}%;background:${v(H[k].c)}"></span>`).join("");
+document.getElementById("legend").innerHTML = Object.keys(H).map(k=>`<span><i class="dot" style="background:${v(H[k].c)}"></i><b>${count(k)}</b> ${H[k].label}</span>`).join("");
+
+// Mapa de projetos (acesso rápido)
+document.getElementById("map").innerHTML = sorted.map(p=>{
+  const pct = p.pct==null ? "" : `<div class="bar" aria-hidden="true"><i style="width:${p.pct}%"></i></div>`;
+  return `<a class="tile" style="--c:${v(H[p.h].c)}" href="${esc(link(p))}" target="_blank" rel="noopener noreferrer" aria-label="Abrir ${esc(p.n)} no SharePoint">
+    <span class="n">${esc(p.n)}</span>
+    <span class="s">${H[p.h].label}${p.pct!=null && p.h!=="concluido" ? ` · ${p.pct}%` : ""}</span>
+    ${p.h!=="concluido"?pct:""}
+    <span class="r">${esc(p.r)}${p.a && p.a!=="–" ? " com " + esc(p.a) : ""}</span>
+    <span class="open">Abrir no SharePoint ↗</span>
+  </a>`;
+}).join("");
+
+// Demais frentes (links da planilha)
+const FRENTES = [
+ {n:"Segurança da Informação e Infraestrutura", r:"Gilberto (Seg. Inf.) e Tiago Fermin (Infra)", c:"--red", s:"1 atrasado · 3 em espera",
+  itens:["Teramind, Campanha de SI e GRC/AC em andamento","MDM celulares, MDM coletores e SIEM em espera","Disaster Recovery atrasado; validar replicação até 08/11","Stress Test Protheus em linha, com risco de lentidão"],
+  u:"seguranca.html"},
+ {n:"E-commerce", r:"Itamar", c:"--green", s:"Em linha · 1 concluído",
+  itens:["B2B Fase 2 concluído","Motor de Preços V2 e WhatsApp Store em linha","R$ 3,0 mi em pedidos B2B de abril a outubro/26"],
+  u:"ecommerce.html"},
+ {n:"Projeto CSC", r:"André Vasques", c:"--green", s:"Em linha",
+  itens:["Centro de Serviços Compartilhados em andamento, sem pontos de atenção no IT Update"],
+  u:"csc.html"}
+];
+document.getElementById("fronts").innerHTML = FRENTES.map(f=>`
+  <div class="front" style="--c:${v(f.c)}">
+    <h3>${esc(f.n)}</h3>
+    <p class="r">Responsável: ${esc(f.r)}</p>
+    <span class="s" style="font-size:13px;font-weight:700;color:${v(f.c)}">${esc(f.s)}</span>
+    <ul>${f.itens.map(i=>`<li>${esc(i)}</li>`).join("")}</ul>
+    <a class="btn" href="${esc(f.u)}" target="_blank" rel="noopener noreferrer">Abrir status report ↗</a>
+  </div>`).join("");
+
+// Pontos de atenção
+document.getElementById("attn").innerHTML = sorted.filter(p=>p.h==="critico"||p.h==="alerta").map(p=>`
+  <div class="card">
+    <div class="top">
+      <a class="go" href="${esc(link(p))}" target="_blank" rel="noopener noreferrer" style="color:${v('--ink')};font-size:17px">${esc(p.n)} ↗</a>
+      <span class="pct">${p.pct!=null?p.pct+"%":"n/d"}</span>
+    </div>
+    <div class="bar"><i style="width:${p.pct||0}%;background:${v(H[p.h].c)}"></i></div>
+    <div style="display:flex;gap:6px;flex-wrap:wrap">
+      <span class="tag" style="background:${v(H[p.h].bg)};color:${v(H[p.h].c)}">Cronograma: ${esc(p.crono)}</span>
+      <span class="tag" style="background:${v(p.qual==="Alerta"?"--amber-bg":"--green-bg")};color:${v(p.qual==="Alerta"?"--amber":"--green")}">Qualidade: ${esc(p.qual)}</span>
+      ${p.orc?`<span class="tag" style="background:${v('--surface-2')};color:${v('--text')}">${esc(p.orc)}</span>`:""}
+    </div>
+    <p>${esc(p.note||"")}</p>
+    <p style="font-size:13px;color:${v('--muted')}">${esc(p.r)} com ${esc(p.a)}</p>
+  </div>`).join("");
+
+// Marcos
+document.getElementById("timeline").innerHTML = MARCOS.map(m=>`<li class="${m.today?"today":""}"><div class="d">${m.d}</div><div class="t">${esc(m.t)}</div></li>`).join("");
+
+// Tabela com filtros
+const FILTROS = [["todos","Todos"],["critico","Crítico / atrasado"],["alerta","Alerta / atenção"],["linha","Em linha"],["concluido","Concluídos"]];
+let filtro = "todos", busca = "";
+const ind = (txt) => {
+  if(!txt) return `<span style="color:${v('--muted')}">–</span>`;
+  const k = /Crít|Atras/.test(txt) ? "--red" : /Alerta|Atenç/.test(txt) ? "--amber" : "--green";
+  return `<span style="color:${v(k)};font-weight:600">● ${esc(txt)}</span>`;
+};
+function render(){
+  const list = sorted.filter(p => (filtro==="todos"||p.h===filtro) &&
+    (busca==="" || (p.n+" "+p.r+" "+p.a).toLowerCase().includes(busca)));
+  document.getElementById("rows").innerHTML = list.length ? list.map(p=>{
+    const done = p.h==="concluido";
+    const pct = p.pct==null ? `<span style="color:${v('--muted')}">n/d</span>` :
+      `<div class="mini"><div class="bar" style="--c:${v(H[p.h].c)}"><i style="width:${p.pct}%"></i></div>${p.pct}%</div>`;
+    return `<tr>
+      <td class="p">${esc(p.n)}</td>
+      <td><span class="tag" style="background:${v(H[p.h].bg)};color:${v(H[p.h].c)}">${H[p.h].label}</span></td>
+      <td class="num">${pct}</td>
+      <td>${done?"–":ind(p.crono)}</td>
+      <td>${done?"–":ind(p.qual)}</td>
+      <td class="num">${p.orc?esc(p.orc):(done?"–":"n/d")}</td>
+      <td>${esc(p.r)}<br><span style="color:${v('--muted')}">${esc(p.a)}</span></td>
+      <td>${esc(p.note || (done?"Entregue":"Sem pontos de atenção"))}</td>
+      <td><a class="go" href="${esc(link(p))}" target="_blank" rel="noopener noreferrer">Abrir ↗</a></td>
+    </tr>`;
+  }).join("") : `<tr><td colspan="9" class="empty">Nenhum projeto encontrado. Limpe a busca ou escolha outro filtro.</td></tr>`;
+  document.querySelectorAll(".f").forEach(b=>b.setAttribute("aria-pressed", b.dataset.k===filtro));
+}
+const fbox = document.getElementById("filters");
+fbox.innerHTML = FILTROS.map(([k,l])=>`<button class="f" data-k="${k}" aria-pressed="false">${l}${k==="todos"?"":" ("+count(k)+")"}</button>`).join("") +
+  `<input class="search" type="search" placeholder="Buscar projeto ou responsável" aria-label="Buscar projeto ou responsável">`;
+fbox.addEventListener("click", e=>{ const b=e.target.closest(".f"); if(b){filtro=b.dataset.k; render();} });
+fbox.querySelector(".search").addEventListener("input", e=>{ busca=e.target.value.trim().toLowerCase(); render(); });
+render();
+</script>
+</body>
+</html>
